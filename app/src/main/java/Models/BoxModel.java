@@ -3,7 +3,6 @@ package Models;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Collections;
 import java.util.ArrayList;
 
 public class BoxModel implements Comparator<BoxModel> {
@@ -13,8 +12,6 @@ public class BoxModel implements Comparator<BoxModel> {
     private int height;
     private int width;
     private int length;
-    private int orientationUp = 90;
-    private int orientationBase = 0;
     private int currentOrientation = 0;
     private int boxId;
     private int volume;
@@ -33,6 +30,9 @@ public class BoxModel implements Comparator<BoxModel> {
     }
 
     public void setOrientation(int orientation) {
+        // actually need to check what the orientation is, and,
+        // switch the lengths, widths, and heights, accordingly.
+        // make an orientation class.
         this.currentOrientation = orientation;
     }
 
@@ -94,8 +94,9 @@ public class BoxModel implements Comparator<BoxModel> {
             if (this.currentOrientation != boxModel.getOrientation()) {
                 boxModel.setOrientation(this.currentOrientation);
             }
-            // even though the volume of this box may be smaller, check if any of its dimensions
+            // even though the volumes of the boxes may be equal, check if any of their dimensions
             // exceeds that of the other box, if so, save the name of those dimensions.
+            // use the names to get the max dimension from the BoxModel.getDimensions method.
             if (this.height > height) {
                 maxDimensions.add(HEIGHT);
             }
