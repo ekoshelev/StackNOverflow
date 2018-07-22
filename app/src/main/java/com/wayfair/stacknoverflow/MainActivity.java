@@ -80,11 +80,13 @@ public class MainActivity extends AppCompatActivity {
 //                            toast.show();
 //                            return null;
 //                        });
-        MaterialFactory.makeOpaqueWithColor(this, new Color(android.graphics.Color.RED))
+
+//        Color theColor = new
+        MaterialFactory.makeTransparentWithColor(this, new Color(0x80ff0000)) //new Color(android.graphics.Color.RED)
                 .thenAccept(
                         material -> {
                             boxRenderable =
-                                    ShapeFactory.makeCube(new Vector3(.2f,.4f,.1f), new Vector3(0.0f, 0.15f, 0.0f), material); });
+                                    ShapeFactory.makeCube(new Vector3(.2f,.2f,.2f), new Vector3(0.0f, 0.15f, 0.0f), material); });
 
         arFragment.setOnTapArPlaneListener(
                 (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
@@ -101,9 +103,16 @@ public class MainActivity extends AppCompatActivity {
                     // Create the transformable andy and add it to the anchor.
                     Node andy = new Node();
                     andy.setParent(anchorNode);
-                    andy.setLookDirection(new Vector3(90,90,90));
-                    andy.setLocalPosition(new Vector3(0.3f,0.3f,0.3f));
+//                    andy.setLookDirection(new Vector3(90,90,90));
+                    andy.setLocalPosition(new Vector3(0.0f,0.0f,0.0f));
                     andy.setRenderable(boxRenderable);
+
+                    Node andy2 = new Node();
+                    andy2.setParent(andy);
+//                    andy2.setLookDirection(new Vector3(180,180,180));
+                    andy2.setLocalPosition(new Vector3(0.2f,0.0f,0.0f));
+                    andy2.setRenderable(boxRenderable);
+
                 });
     }
 
