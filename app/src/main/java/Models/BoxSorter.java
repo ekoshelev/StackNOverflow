@@ -2,6 +2,7 @@
 
 package Models;
 import java.util.ArrayList;
+import java.lang.System;
 
 public class BoxSorter {
 
@@ -44,9 +45,8 @@ public class BoxSorter {
                     for (int y = 0; y < this.containerHeight; y += box.getHeight()) {
                         if (z >= this.containerLength && x >= this.containerWidth && y > this.containerHeight) {
                             break outerloop;
-                        } else {
+                        } else
                             coordinate = new Coordinate(x, y, z);
-                        }
                     }
                 }
             }
