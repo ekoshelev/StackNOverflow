@@ -36,11 +36,11 @@ public class BoxModel implements Comparator<BoxModel> {
     }
 
     public int getWidth() {
-        return this.height;
+        return this.width;
     }
 
     public int getBoxId() {
-        return this.height;
+        return this.boxId;
     }
 
     public int getVolume() {
