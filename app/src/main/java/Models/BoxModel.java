@@ -16,11 +16,7 @@ public class BoxModel implements Comparator<BoxModel> {
     private int currentOrientation = 0;
     private int boxId;
     private int volume;
-    // follow dimensions of container
-    // closest box dimension to container width is the width
-    //  then closest box dimension to length is the length
-    //    then closest box dimension to height is the height
-    // check remainder height after each box placement
+
     // Constructor for the Box Model.
     public BoxModel(int boxId, int height, int width, int length) {
         this.boxId = boxId;
@@ -49,10 +45,6 @@ public class BoxModel implements Comparator<BoxModel> {
 
     public int getVolume() {
         return this.volume;
-    }
-
-    public int switchOrientation() {
-        if ()
     }
 
     // return all a map of dimension values and their appropriate key.
