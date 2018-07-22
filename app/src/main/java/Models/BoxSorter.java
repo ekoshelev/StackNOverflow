@@ -35,16 +35,26 @@ public class BoxSorter {
     // This method is for testing purposes to see if the AR side can take a list of boxes and
     // put them in the proper location in the container.
     public ArrayList<BoxData> sortedBoxes(int N) {
-        int i;
-        int previousX = 0;
+        int currentHeight = 0;
+        int currentWidth = 0;
+        int currentLength = 0;
+        Coordinate coordinate = null;
         // create N boxes of preset sizes.
-        ArrayList<BoxData> sortedBoxesAndData = new ArrayList<BoxData>();
-        for (i = 0; i < N; i++) {
+        ArrayList<BoxData> sortedBoxesAndData = new ArrayList<>();
+        for (int i = 0; i < N; i++) {
             BoxModel box = new BoxModel(i, i, i, i);
-            // using x axis as base for where new coordinates are computed from.
-            // y and z axis stay the same for now.
-            Coordinate coordinate = new Coordinate(previousX + i, i, i);
-            previousX = i;
+            currentHeight = currentHeight + box.getHeight();
+            currentLength = currentLength + box.getLength();
+            currentWidth = currentWidth + box.getWidth();
+            // check for available space and create coordinates for the box based on where the previous
+            // box was placed
+            for (int z = 0; z < this.containerHeight; z += box.getLength()) {
+                for (int x = 0; x < this.containerWidth; x += box.getWidth()) {
+                    for (int y = 0; y < this.containerLength; y += box.getHeight()) {
+                        coordinate = new Coordinate(x,y,z);
+                    }
+                }
+            }
             BoxData boxData = new BoxData(box, coordinate);
             sortedBoxesAndData.add(boxData);
         }
