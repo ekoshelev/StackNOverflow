@@ -1,17 +1,76 @@
 package Models;
 
-public class BoxModel {
-    public int height;
-    public int width;
-    public int length;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
-    public int boxId;
-
+public class BoxModel implements Comparator<BoxModel> {
+    private final String HEIGHT = "Height";
+    private final String LENGTH = "Length";
+    private final String WIDTH = "Width";
+    private int height;
+    private int width;
+    private int length;
+    private int orientationUp = 90;
+    private int orientationBase = 0;
+    private int currentOrientation = 0;
+    private int boxId;
+    private int volume;
+    // follow dimensions of container
+    // closest box dimension to container width is the width
+    //  then closest box dimension to length is the length
+    //    then closest box dimension to height is the height
+    // check remainder height after each box placement
     // Constructor for the Box Model.
-    public boxModel(int boxId, int height, int width, int length) {
+    public BoxModel(int boxId, int height, int width, int length) {
         this.boxId = boxId;
         this.height = height;
         this.width = width;
         this.length = length;
+        this.volume = height * length * width;
+
+    }
+
+    public int getHeight() {
+        return this.height;
+    }
+
+    public int getLength() {
+        return this.length;
+    }
+
+    public int getWidth() {
+        return this.height;
+    }
+
+    public int getBoxId() {
+        return this.height;
+    }
+
+    public int getVolume() {
+        return this.volume;
+    }
+
+    public int switchOrientation() {
+        if ()
+    }
+
+    // return all a map of dimension values and their appropriate key.
+    public Map<String, Integer> getDimensions() {
+        Map<String, Integer> dimensionMap = new HashMap<>();
+        dimensionMap.put(HEIGHT, this.height);
+        dimensionMap.put(LENGTH, this.length);
+        dimensionMap.put(WIDTH, this.width);
+        return dimensionMap;
+    }
+
+    @Override
+    public int compare(BoxModel boxModel1, BoxModel boxModel2) {
+        if (boxModel1.getVolume() < boxModel2.getVolume()) {
+            return -1;
+        } else if (boxModel1.getVolume() > boxModel2.getVolume()) {
+            return 1;
+        }
+        return 0;
     }
 }
