@@ -20,7 +20,9 @@ package com.wayfair.stacknoverflow;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
-import android.graphics.Color;
+
+import com.google.ar.sceneform.Node;
+import com.google.ar.sceneform.rendering.Color;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
@@ -33,7 +35,10 @@ import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.math.Vector3;
+import com.google.ar.sceneform.rendering.MaterialFactory;
 import com.google.ar.sceneform.rendering.ModelRenderable;
+import com.google.ar.sceneform.rendering.ShapeFactory;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
@@ -83,20 +88,22 @@ public class MainActivity extends AppCompatActivity {
 
         arFragment.setOnTapArPlaneListener(
                 (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
-                    if (andyRenderable == null) {
+                    if (boxRenderable == null) {
                         return;
                     }
 
                     // Create the Anchor.
                     Anchor anchor = hitResult.createAnchor();
                     AnchorNode anchorNode = new AnchorNode(anchor);
+                    anchorNode.setWorldPosition(new Vector3(0f,0f,0f));
                     anchorNode.setParent(arFragment.getArSceneView().getScene());
 
                     // Create the transformable andy and add it to the anchor.
-                    TransformableNode andy = new TransformableNode(arFragment.getTransformationSystem());
+                    Node andy = new Node();
                     andy.setParent(anchorNode);
+                    andy.setLookDirection(new Vector3(90,90,90));
+                    andy.setLocalPosition(new Vector3(0.3f,0.3f,0.3f));
                     andy.setRenderable(boxRenderable);
-                    andy.select();
                 });
     }
 
