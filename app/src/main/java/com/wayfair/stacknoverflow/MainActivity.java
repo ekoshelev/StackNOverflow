@@ -35,6 +35,11 @@ import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
+import com.google.ar.sceneform.rendering.MaterialFactory;
+import com.google.ar.sceneform.rendering.ShapeFactory;
+import com.google.ar.sceneform.rendering.Color;
+import com.google.ar.sceneform.math.Vector3;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * This is an example activity that uses the Sceneform UX package to make common AR tasks easier.
@@ -45,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ArFragment arFragment;
     private ModelRenderable andyRenderable;
+    private ModelRenderable redSphere;
 
     @Override
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
@@ -65,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         ModelRenderable.builder()
                 .setSource(this, R.raw.andy)
                 .build()
-                .thenAccept(renderable -> andyRenderable = renderable)
+                .thenAccept(renderable -> redSphere = renderable)
                 .exceptionally(
                         throwable -> {
                             Toast toast =
@@ -75,21 +81,30 @@ public class MainActivity extends AppCompatActivity {
                             return null;
                         });
 
+
+
         arFragment.setOnTapArPlaneListener(
                 (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
-                    if (andyRenderable == null) {
-                        return;
-                    }
+//                    if (andyRenderable == null) {
+//                        return;
+//                    }
 
                     // Create the Anchor.
                     Anchor anchor = hitResult.createAnchor();
                     AnchorNode anchorNode = new AnchorNode(anchor);
                     anchorNode.setParent(arFragment.getArSceneView().getScene());
 
+//                    CompletableFuture<Void> redSphere = MaterialFactory.makeOpaqueWithColor(this, new Color(android.graphics.Color.RED))
+//                            .thenAccept(
+//                                    material -> {
+//                                        ShapeFactory.makeSphere(0.1f, new Vector3(0.0f, 0.15f, 0.0f), material); }
+//                            );
+
+
                     // Create the transformable andy and add it to the anchor.
                     TransformableNode andy = new TransformableNode(arFragment.getTransformationSystem());
                     andy.setParent(anchorNode);
-                    andy.setRenderable(andyRenderable);
+                    andy.setRenderable(redSphere);
                     andy.select();
                 });
     }
